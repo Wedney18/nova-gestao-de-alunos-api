@@ -1,4 +1,4 @@
-# Gestão de Alunos API
+# Nova Gestão de Alunos API
 
 API REST para gestão de alunos, disciplinas, notas e trabalhos, com persistência em MongoDB.
 

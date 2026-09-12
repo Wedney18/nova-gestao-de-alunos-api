@@ -1,0 +1,14 @@
+[
+  {
+    "perfil": "administrador",
+    "emailEnv": "ADMIN_EMAIL",
+    "senhaEnv": "ADMIN_SENHA",
+    "statusCodeEsperado": 200
+  },
+  {
+    "perfil": "aluno",
+    "emailEnv": "ALUNO_EMAIL",
+    "senhaEnv": "ALUNO_SENHA",
+    "statusCodeEsperado": 200
+  }
+]
