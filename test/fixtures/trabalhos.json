@@ -1,7 +1,7 @@
 [
   {
-    "testTitle": "aluno registra uma entrega em disciplina em que está matriculado",
-    "alunoId": "aluno-ana-souza",
+    "testTitle": "aluno registra uma entrega de trabalho",
+    "alunoId": "db8f2f2b-13b6-486f-9b1f-4e63b82791e5",
     "disciplinaId": "disciplina-matematica",
     "titulo": "Lista de Exercícios 2",
     "descricao": "Resolução dos exercícios de 21 a 40 do capítulo 2.",

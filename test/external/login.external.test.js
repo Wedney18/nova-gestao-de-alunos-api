@@ -1,10 +1,11 @@
 import request from 'supertest';
 import { expect } from 'chai';
 import { getToken } from '../helpers/auth.js';
+import { api } from '../helpers/api.js';
 
 describe('Login External', () => {
     it('deve retornar 200 quando o usuário e senha forem corretos', async () => {
-        const loginResposta = await request('http://localhost:3000')  
+        const loginResposta = await api()  
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
             .send({
@@ -16,7 +17,7 @@ describe('Login External', () => {
     });
 
     it('deve retornar 400 quando não informado e-mail', async () => {
-        const loginResposta = await request('http://localhost:3000')
+        const loginResposta = await api()
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
             .send({
@@ -29,7 +30,7 @@ describe('Login External', () => {
     });
 
     it('deve retornar 400 quando não informado senha', async () => {
-        const loginResposta = await request('http://localhost:3000')
+        const loginResposta = await api()
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
             .send({
@@ -42,7 +43,7 @@ describe('Login External', () => {
     });
 
     it('deve retornar 401 quando informado e-mail incorreto', async () => {
-        const loginResposta = await request('http://localhost:3000')
+        const loginResposta = await api()
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
             .send({
@@ -55,7 +56,7 @@ describe('Login External', () => {
     });
 
     it('deve retornar 401 quando informado senha incorreta', async () => {
-        const loginResposta = await request('http://localhost:3000')
+        const loginResposta = await api()
             .post('/api/auth/login')
             .set('Content-Type', 'application/json')
             .send({

@@ -25,6 +25,7 @@ async function seedAlunos() {
     { _id: 'aluno-ana-souza', nome: 'Ana Souza', email: 'ana.souza@example.com', matricula: '2024001', senha: SENHA_PADRAO_ALUNO },
     { _id: 'aluno-bruno-lima', nome: 'Bruno Lima', email: 'bruno.lima@example.com', matricula: '2024002', senha: SENHA_PADRAO_ALUNO },
     { _id: 'aluno-carla-mendes', nome: 'Carla Mendes', email: 'carla.mendes@example.com', matricula: '2024003', senha: SENHA_PADRAO_ALUNO },
+    { _id: 'aluno-junior-alcala', nome: 'Júnior Alcalá', email: 'junior.alcala@example.com', matricula: '2024004', senha: SENHA_PADRAO_ALUNO },
   ]);
 }
 
@@ -38,7 +39,7 @@ async function seedDisciplinas() {
 
 async function seedMatriculas() {
   await Matricula.create([
-    { _id: 'matricula-ana-matematica', alunoId: 'aluno-ana-souza', disciplinaId: 'disciplina-matematica' },
+    { _id: 'matricula-junior-matematica', alunoId: 'aluno-junior-alcala', disciplinaId: 'disciplina-matematica' },
     { _id: 'matricula-ana-programacao', alunoId: 'aluno-ana-souza', disciplinaId: 'disciplina-programacao-web' },
     { _id: 'matricula-bruno-matematica', alunoId: 'aluno-bruno-lima', disciplinaId: 'disciplina-matematica' },
     { _id: 'matricula-bruno-historia', alunoId: 'aluno-bruno-lima', disciplinaId: 'disciplina-historia' },
@@ -49,8 +50,8 @@ async function seedMatriculas() {
 async function seedNotas() {
   await Nota.create([
     {
-      _id: 'nota-ana-matematica-prova1',
-      alunoId: 'aluno-ana-souza',
+      _id: 'nota-junior-matematica-prova1',
+      alunoId: 'aluno-junior-alcala',
       disciplinaId: 'disciplina-matematica',
       valor: 8.5,
       tipo: 'prova',
@@ -95,7 +96,7 @@ async function seedTrabalhos() {
   await Trabalho.create([
     {
       _id: 'trabalho-ana-lista-exercicios-1',
-      alunoId: 'aluno-ana-souza',
+      alunoId: 'aluno-junior-alcala',
       disciplinaId: 'disciplina-matematica',
       titulo: 'Lista de Exercícios 1',
       descricao: 'Resolução dos exercícios de 1 a 20 do capítulo 2.',
