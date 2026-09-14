@@ -180,6 +180,7 @@ para demonstração.
 | `aluno-ana-souza`    | Ana Souza     | ana.souza@example.com       | 2024001   | 123456 |
 | `aluno-bruno-lima`   | Bruno Lima    | bruno.lima@example.com      | 2024002   | 123456 |
 | `aluno-carla-mendes` | Carla Mendes  | carla.mendes@example.com    | 2024003   | 123456 |
+| `aluno-junior-alcala` | Júnior Alcalá | junior.alcala@example.com   | 2024004   | 123456 |
 
 ### Disciplinas (`/api/admin/disciplinas`)
 
@@ -193,29 +194,29 @@ para demonstração.
 
 | aluno         | disciplina         |
 |---------------|---------------------|
-| Ana Souza     | Matemática          |
 | Ana Souza     | Programação Web     |
 | Bruno Lima    | Matemática          |
 | Bruno Lima    | História            |
 | Carla Mendes  | Programação Web     |
+| Júnior Alcalá | Matemática          |
 
 ### Notas (`/api/admin/notas`)
 
 | aluno         | disciplina         | tipo         | valor |
 |---------------|---------------------|--------------|-------|
-| Ana Souza     | Matemática          | prova        | 8.5   |
 | Ana Souza     | Programação Web     | prova        | 9.2   |
 | Bruno Lima    | Matemática          | prova        | 6.0   |
 | Bruno Lima    | História            | participação | 7.5   |
 | Carla Mendes  | Programação Web     | prova        | 10    |
+| Júnior Alcalá | Matemática          | prova        | 8.5   |
 
 ### Trabalhos (`/api/admin/trabalhos`)
 
 | aluno         | disciplina    | título                                  | status      |
 |---------------|---------------|-------------------------------------------|-------------|
-| Ana Souza     | Matemática    | Lista de Exercícios 1                     | entregue    |
 | Bruno Lima    | História      | Linha do Tempo - Revolução Industrial     | corrigido (nota 8.0) |
 | Carla Mendes  | Programação Web | Landing Page Responsiva                 | entregue    |
+| Júnior Alcalá | Matemática    | Lista de Exercícios 1                     | entregue    |
 
 ### Exemplos rápidos de uso
 
