@@ -1,5 +1,5 @@
 {
-  "name": "gestao-de-alunos-api",
+  "name": "nova-gestao-de-alunos-api",
   "version": "1.0.0",
   "description": "API REST para gestão de alunos, disciplinas, notas e trabalhos, com persistência em MongoDB.",
   "main": "src/server.js",

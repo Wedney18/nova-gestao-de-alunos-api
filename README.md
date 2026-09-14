@@ -297,21 +297,21 @@ curl -X POST http://localhost:3000/api/admin/disciplinas/disciplina-historia/mat
 curl -X POST http://localhost:3000/api/admin/notas \
   -H "Authorization: Bearer $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"alunoId":"aluno-ana-souza","disciplinaId":"disciplina-matematica","valor":7.8,"tipo":"trabalho"}'
+  -d '{"alunoId":"aluno-junior-alcala","disciplinaId":"disciplina-matematica","valor":7.8,"tipo":"trabalho"}'
 
-# Login como aluno (Ana)
+# Login como aluno (Júnior)
 ALUNO_TOKEN=$(curl -s -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"ana.souza@example.com","senha":"123456"}' | node -pe 'JSON.parse(require("fs").readFileSync(0)).token')
+  -d '{"email":"junior.alcala@example.com","senha":"123456"}' | node -pe 'JSON.parse(require("fs").readFileSync(0)).token')
 
 # Aluno: ver minhas disciplinas
-curl http://localhost:3000/api/alunos/aluno-ana-souza/disciplinas -H "Authorization: Bearer $ALUNO_TOKEN"
+curl http://localhost:3000/api/alunos/aluno-junior-alcala/disciplinas -H "Authorization: Bearer $ALUNO_TOKEN"
 
 # Aluno: ver minhas notas
-curl http://localhost:3000/api/alunos/aluno-ana-souza/notas -H "Authorization: Bearer $ALUNO_TOKEN"
+curl http://localhost:3000/api/alunos/aluno-junior-alcala/notas -H "Authorization: Bearer $ALUNO_TOKEN"
 
 # Aluno: registrar um trabalho
-curl -X POST http://localhost:3000/api/alunos/aluno-ana-souza/trabalhos \
+curl -X POST http://localhost:3000/api/alunos/aluno-junior-alcala/trabalhos \
   -H "Authorization: Bearer $ALUNO_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"disciplinaId":"disciplina-matematica","titulo":"Lista de Exercícios 2"}'
