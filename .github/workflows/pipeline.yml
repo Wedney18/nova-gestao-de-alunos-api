@@ -1,4 +1,4 @@
-name: Testes da API de gestão de alunos
+name: Testes da API gestão de alunos
 
 on:
   push:
@@ -9,6 +9,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      MONGODB_URI: mongodb://127.0.0.1:27017/gestao-de-alunos-test
+      BASE_URL: http://127.0.0.1:3000
+      ADMIN_EMAIL: admin@escola.com
+      ADMIN_SENHA: admin123
+      ALUNO_EMAIL: junior.alcala@example.com
+      ALUNO_SENHA: 123456
 
     services:
       mongodb:
@@ -34,7 +41,15 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
+      - name: Iniciar API
+        run: |
+          npm start > server.log 2>&1 &
+          for tentativa in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/ > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
       - name: Executar testes
         run: npm test
-        env:
-          MONGODB_URI: mongodb://127.0.0.1:27017/gestao-de-alunos-test
