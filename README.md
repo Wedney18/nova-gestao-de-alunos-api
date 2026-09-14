@@ -101,7 +101,7 @@ ambiente `PORT`).
 ### Configuração do MongoDB
 
 Por padrão, a API se conecta a um MongoDB local em
-`mongodb://127.0.0.1:27017/gestao-de-alunos`. Para usar outra instância (ex.: MongoDB Atlas ou um
+`mongodb://127.0.0.1:27017/nova-gestao-de-alunos`. Para usar outra instância (ex.: MongoDB Atlas ou um
 container), defina a variável de ambiente `MONGODB_URI` antes de subir o servidor:
 
 ```bash
@@ -121,7 +121,7 @@ ignorado pelo Git e não deve conter credenciais compartilhadas no repositório.
 |----------|-----------|-------------------|
 | `PORT` | Porta HTTP da API | `3000` |
 | `BASE_URL` | URL usada pelos testes externos | `http://localhost:3000` |
-| `MONGODB_URI` | String de conexão do MongoDB | `mongodb://127.0.0.1:27017/gestao-de-alunos` |
+| `MONGODB_URI` | String de conexão do MongoDB | `mongodb://127.0.0.1:27017/nova-gestao-de-alunos` |
 | `JWT_SECRET` | Segredo usado para assinar tokens JWT | definir um segredo próprio |
 | `ADMIN_EMAIL` | E-mail do administrador usado pelos testes | `admin@escola.com` |
 | `ADMIN_SENHA` | Senha do administrador usada pelos testes | `admin123` |
@@ -129,6 +129,25 @@ ignorado pelo Git e não deve conter credenciais compartilhadas no repositório.
 | `ALUNO_SENHA` | Senha do aluno usada pelos testes | `123456` |
 
 A aplicação carrega essas variáveis com `dotenv/config` durante a inicialização.
+
+### Arquivo `.env.example`
+
+O repositório inclui um arquivo modelo em [`.env.example`](.env.example) com as variáveis mínimas
+necessárias para rodar a API e os testes locais.
+
+```bash
+cp .env.example .env
+```
+
+Esse arquivo já traz valores padrão para desenvolvimento local, incluindo:
+
+- `PORT` e `BASE_URL`
+- `MONGODB_URI` para conexão com o MongoDB
+- `JWT_SECRET` para assinar os tokens
+- credenciais do administrador e do aluno usados nos testes externos
+
+> Em ambientes reais, substitua os valores de exemplo por segredos e configurações adequadas ao seu
+> ambiente.
 
 ## Documentação da API (Swagger)
 
@@ -236,6 +255,26 @@ para demonstração.
 | Bruno Lima    | História      | Linha do Tempo - Revolução Industrial     | corrigido (nota 8.0) |
 | Carla Mendes  | Programação Web | Landing Page Responsiva                 | entregue    |
 | Júnior Alcalá | Matemática    | Lista de Exercícios 1                     | entregue    |
+
+## Testes e fluxo integrado
+
+O projeto inclui testes automatizados para validar o comportamento principal da API, incluindo um
+fluxo integrado de aluno. O cenário coberto em [test/external/fluxo-integrado.external.test.js](test/external/fluxo-integrado.external.test.js)
+segue este caminho:
+
+1. cadastro de um aluno pelo administrador;
+2. login do aluno;
+3. matrícula do aluno em uma disciplina;
+4. entrega de um trabalho pelo próprio aluno.
+
+Para executar a suíte completa:
+
+```bash
+npm test
+```
+
+Esse comando executa os testes em `test/**/*.test.js`, incluindo os testes externos e o cenário de
+fluxo integrado.
 
 ### Exemplos rápidos de uso
 
