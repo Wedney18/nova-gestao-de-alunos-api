@@ -5,6 +5,10 @@ import * as sinon from 'sinon';
 import authService from '../../src/services/auth.service.js';
 
 describe('Login', () => {
+    afterEach(() => {
+        sinon.restore();
+    });
+    
     it('deve retornar 200 quando o usuário e senha forem corretos', async () => {
         const loginResposta = await request(app)
             .post('/api/auth/login')
@@ -43,6 +47,8 @@ describe('Login', () => {
 
     it ('deve retornar 500 quando acontecer algum problema de conexão com o banco de dados', async () => {
         const authServiceMock = sinon.stub(authService, 'login');
+        const consoleErrorMock = sinon.stub(console, 'error');
+
         authServiceMock.throws(new Error('Erro catastrófico!'));  
 
         const loginResposta = await request(app)
@@ -56,6 +62,5 @@ describe('Login', () => {
         expect(loginResposta.status).to.equal(500);
         expect(loginResposta.body.error).to.equal('Erro interno do servidor.');
 
-        sinon.restore();
     });
 });

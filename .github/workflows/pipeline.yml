@@ -1,4 +1,4 @@
-name: Testes de API
+name: Testes da API de gestão de alunos
 
 on:
   push:

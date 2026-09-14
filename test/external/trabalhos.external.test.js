@@ -8,7 +8,7 @@ import { api } from '../helpers/api.js';
 
 describe('Trabalhos External', () => {
     for (const caso of trabalhos) {
-        it(`aluno registra uma entrega de trabalho ${caso.testTitle}`, async () => {
+        it(caso.testTitle, async () => {
             const tokenAluno = await comTokenDeAluno();
             const alunoId = jwt.decode(tokenAluno).sub;
 

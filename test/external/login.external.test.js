@@ -1,70 +1,28 @@
-import request from 'supertest';
 import { expect } from 'chai';
-import { getToken } from '../helpers/auth.js';
 import { api } from '../helpers/api.js';
+import loginCases from '../fixtures/login.json' with { type: 'json' };
 
 describe('Login External', () => {
-    it('deve retornar 200 quando o usuário e senha forem corretos', async () => {
-        const loginResposta = await api()  
-            .post('/api/auth/login')
-            .set('Content-Type', 'application/json')
-            .send({
-                email: 'admin@escola.com',
-                senha: 'admin123'
-            });
+    for (const caso of loginCases) {
+        it(caso.testTitle, async () => {
+            const email = caso.emailEnv ? process.env[caso.emailEnv] : caso.email;
+            const senha = caso.senhaEnv ? process.env[caso.senhaEnv] : caso.senha;
 
-        expect(loginResposta.status).to.equal(200);
-    });
+            const loginResposta = await api()
+                .post('/api/auth/login')
+                .set('Content-Type', 'application/json')
+                .send({ email, senha });
 
-    it('deve retornar 400 quando não informado e-mail', async () => {
-        const loginResposta = await api()
-            .post('/api/auth/login')
-            .set('Content-Type', 'application/json')
-            .send({
-                email: '',
-                senha: 'admin123'
-            });
+            expect(loginResposta.status).to.equal(caso.statusCodeEsperado);
 
-        expect(loginResposta.status).to.equal(400);
-        expect(loginResposta.body.error).to.equal('Os campos "email" e "senha" são obrigatórios.');
-    });
+            if (caso.emailRespostaEnv) {
+                expect(loginResposta.body.usuario.email)
+                    .to.equal(process.env[caso.emailRespostaEnv]);
+            }
 
-    it('deve retornar 400 quando não informado senha', async () => {
-        const loginResposta = await api()
-            .post('/api/auth/login')
-            .set('Content-Type', 'application/json')
-            .send({
-                email: 'admin@escola.com',
-                senha: ''
-            });
-
-        expect(loginResposta.status).to.equal(400);
-        expect(loginResposta.body.error).to.equal('Os campos "email" e "senha" são obrigatórios.');
-    });
-
-    it('deve retornar 401 quando informado e-mail incorreto', async () => {
-        const loginResposta = await api()
-            .post('/api/auth/login')
-            .set('Content-Type', 'application/json')
-            .send({
-                email: 'usuario@escola.com',
-                senha: 'admin123'
-            });
-
-        expect(loginResposta.status).to.equal(401);
-        expect(loginResposta.body.error).to.equal('E-mail ou senha inválidos.');
-    });
-
-    it('deve retornar 401 quando informado senha incorreta', async () => {
-        const loginResposta = await api()
-            .post('/api/auth/login')
-            .set('Content-Type', 'application/json')
-            .send({
-                email: 'admin@escola.com',
-                senha: 'senha incorreta'
-            });
-
-        expect(loginResposta.status).to.equal(401);
-        expect(loginResposta.body.error).to.equal('E-mail ou senha inválidos.');
-    });
+            if (caso.erroEsperado) {
+                expect(loginResposta.body.error).to.equal(caso.erroEsperado);
+            }
+        });
+    }
 });

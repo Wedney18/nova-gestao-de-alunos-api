@@ -1,0 +1,16 @@
+[
+  {
+    "testTitle": "admin cadastra aluno e aluno registra entrega de trabalho",
+    "nome": "Aluno Fluxo Integrado",
+    "email": "aluno.fluxo.integrado@example.com",
+    "matricula": "2026-FLUXO-01",
+    "senha": "123456",
+    "disciplinaId": "disciplina-matematica",
+    "titulo": "Trabalho do Fluxo Integrado",
+    "descricao": "Entrega criada pelo aluno cadastrado durante o próprio teste.",
+    "cadastroStatusEsperado": 201,
+    "loginStatusEsperado": 200,
+    "matriculaStatusEsperado": 201,
+    "entregaStatusEsperado": 201
+  }
+]

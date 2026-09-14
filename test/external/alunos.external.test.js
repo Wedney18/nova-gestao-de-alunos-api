@@ -1,68 +1,41 @@
 import request from 'supertest';
 import { expect } from 'chai';
-import { getToken } from '../helpers/auth.js';
-import { api } from '../helpers/api.js';
+import { comTokenDeAdmin } from '../helpers/auth.js';
 import Aluno from '../../src/models/aluno.model.js';
+import { api } from '../helpers/api.js';
+import alunos from '../fixtures/alunos.json' with { type: 'json' };
 
 beforeEach(async () => {
     await Aluno.deleteOne({
         $or: [
             { email: 'wedney.silva@example.com' },
-            { matricula: '2026-0003' },
+            { matricula: '2026-0004' },
         ],
     });
 });
 
+describe('Alunos External', () => {
+    for (const caso of alunos) {
+        it(caso.testTitle, async () => {
+            const token = await comTokenDeAdmin();
+            const cadastroAlunoResposta = await api()
+                .post('/api/admin/alunos')
+                .set('Content-Type', 'application/json')
+                .set('Authorization', token)
+                .send({
+                    nome: caso.nome,
+                    email: caso.email,
+                    matricula: caso.matricula,
+                    senha: caso.senha,
+                });
 
-describe('Login', () => {
-    let token;
+            expect(cadastroAlunoResposta.status).to.equal(caso.statusCodeEsperado);
 
-    beforeEach(async () => {
-        token = await getToken('admin@escola.com', 'admin123');
-    });
-
-    it('deve cadastrar um aluno quando ele informa dados válidos', async () => {
-        // Obter o token
-        const loginResposta = await api()
-            .post('/api/auth/login')
-            .set('Content-Type', 'application/json')
-            .send({ 
-                email: 'admin@escola.com', 
-                senha: 'admin123' 
-            });
-        
-        const token = loginResposta.body.token;
-
-        // Cadastrar o aluno
-        const cadastroAlunoResposta = await api()
-            .post('/api/admin/alunos')
-            .set('Content-Type', 'application/json')
-            .set('Authorization', `Bearer ${token}`)
-            .send({ 
-                nome: 'Wedney Silva', 
-                email: 'wedney.silva@example.com',
-                matricula: '2026-0004',
-                senha: '123456' 
-            });
-
-        // Validar que ele foi cadastrado
-        expect(cadastroAlunoResposta.status).to.equal(201);
-        expect(cadastroAlunoResposta.body.nome).to.equal('Wedney Silva');
-        expect(cadastroAlunoResposta.body.email).to.equal('wedney.silva@example.com');
-        expect(cadastroAlunoResposta.body.matricula).to.equal('2026-0004');
-
-    });
-
-    it('deve negar o cadastro de um aluno quando ele já existe', async () => {
-        const cadastroAlunoResposta = await api()
-            .post('/api/admin/alunos')
-            .set('Content-Type', 'application/json')
-            .set('Authorization', `Bearer ${token}`)
-            .send({
-                nome: 'Junior Alcala',
-                email: 'junior.alcala@example.com',
-                matricula: '2024001',
-                senha: '123456'
-            });
-    });
+            if (caso.statusCodeEsperado === 201) {
+                expect(cadastroAlunoResposta.body.nome).to.equal(caso.nome);
+                expect(cadastroAlunoResposta.body.email).to.equal(caso.email);
+                expect(cadastroAlunoResposta.body.matricula).to.equal(caso.matricula);
+            }
+        });
+    }
 });

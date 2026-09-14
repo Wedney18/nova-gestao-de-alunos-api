@@ -39,6 +39,7 @@ banco está vazio (veja [Dados fake pré-carregados](#dados-fake-pré-carregados
 - **swagger-ui-express** — renderização do Swagger UI a partir do YAML
 - **cors** — liberação de CORS para consumo por outros clientes/origens
 - **morgan** — log de requisições HTTP no console
+- **dotenv** — carregamento das variáveis de ambiente a partir do arquivo `.env`
 - **nodemon** (dependência de desenvolvimento) — reinício automático do servidor durante o
   desenvolvimento
 
@@ -110,6 +111,24 @@ MONGODB_URI="mongodb://usuario:senha@host:27017/nome-do-banco" npm start
 Na primeira execução com o banco vazio, a API popula automaticamente as coleções com o conjunto de
 dados fake descrito em [Dados fake pré-carregados](#dados-fake-pré-carregados). Em execuções
 seguintes, os dados já existentes são preservados.
+
+### Variáveis de ambiente
+
+Copie `.env.example` para `.env` e ajuste os valores conforme o ambiente. O arquivo `.env` é
+ignorado pelo Git e não deve conter credenciais compartilhadas no repositório.
+
+| Variável | Finalidade | Padrão ou exemplo |
+|----------|-----------|-------------------|
+| `PORT` | Porta HTTP da API | `3000` |
+| `BASE_URL` | URL usada pelos testes externos | `http://localhost:3000` |
+| `MONGODB_URI` | String de conexão do MongoDB | `mongodb://127.0.0.1:27017/gestao-de-alunos` |
+| `JWT_SECRET` | Segredo usado para assinar tokens JWT | definir um segredo próprio |
+| `ADMIN_EMAIL` | E-mail do administrador usado pelos testes | `admin@escola.com` |
+| `ADMIN_SENHA` | Senha do administrador usada pelos testes | `admin123` |
+| `ALUNO_EMAIL` | E-mail do aluno usado pelos testes | `junior.alcala@example.com` |
+| `ALUNO_SENHA` | Senha do aluno usada pelos testes | `123456` |
+
+A aplicação carrega essas variáveis com `dotenv/config` durante a inicialização.
 
 ## Documentação da API (Swagger)
 
