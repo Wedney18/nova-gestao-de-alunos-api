@@ -17,7 +17,7 @@ for (const caso of fluxoCases) {
             await Aluno.deleteOne({ _id: aluno._id });
         });
 
-        it(caso.testTitle, async () => {
+        it(`deve realizar o fluxo completo de cadastro, login, matrícula e entrega para ${caso.email}`, async () => {
             const tokenAdmin = await comTokenDeAdmin();
             const cadastroResposta = await api()
                 .post('/api/admin/alunos')

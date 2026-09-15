@@ -4,7 +4,7 @@ import loginCases from '../fixtures/login.json' with { type: 'json' };
 
 describe('Login External', () => {
     for (const caso of loginCases) {
-        it(caso.testTitle, async () => {
+        it(`deve realizar login com credenciais válidas`, async () => {
             const email = caso.emailEnv ? process.env[caso.emailEnv] : caso.email;
             const senha = caso.senhaEnv ? process.env[caso.senhaEnv] : caso.senha;
 
